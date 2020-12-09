@@ -6,13 +6,14 @@
 </head>
 <body>
 <p>Решим пример: </p>
-<p th:text="${operand1} + ${operation} +${operand2}" />
+
+<p th:text="${userExer.getOperand1()} + ${userExer.getOperation()} +${userExer.getOperand2()}" />
 <form th:method="POST" th:action="@{/check}" th:object="${answer}">
     <label for="answer">Ответ</label>
-    <input name="answer" type="number" id="answer">
+    <input name="answer" type="number"  id="answer">
     <input type="submit" value="Проверить"/>
 </form>
-    <p><span th:text="${count}"/> - всего выполнено заданий</p>
-    <p><span th:text="${okcount}"/> - правильно выполнено заданий</p>
+    <p><span th:text="${userExer.getOkCount()+userExer.getErCount()}"/> - всего выполнено заданий</p>
+    <p><span th:text="${userExer.getOkCount()}"/> - правильно выполнено заданий</p>
 </body>
 </html>

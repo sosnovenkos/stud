@@ -6,11 +6,11 @@
 </head>
 <body>
 <p>Проверка: </p>
-<p th:text="${checked}"/>
+<p th:text="${userExer.getChecked()}"/>
 <form th:method="get" th:action="@{/doex}">
     <button  type="submit">Еще раз</button>
 </form>
-<p><span th:text="${count}"/> - всего выполнено заданий</p>
-<p><span th:text="${okcount}"/> - правильно выполнено заданий</p>
+<p><span th:text="${userExer.getOkCount()+userExer.getErCount()}"/> - всего выполнено заданий</p>
+<p><span th:text="${userExer.getOkCount()}"/> - правильно выполнено заданий</p>
 </body>
 </html>

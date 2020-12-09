@@ -1,58 +1,61 @@
 package my.home.MathExercises;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MathController {
-    int operand1=1;
-    int operand2=2;
+    UserExer userExer;
     int answer;
-    String operation;
-    int okCount;
-    int erCount;
 
     @GetMapping("/doex")
-    public String getExercise(Model model){
-            this.operand1 = (int) (Math.random() * 100);
-            this.operand2 = (int) (Math.random() * 100);
-            if (operand1<operand2)
+    public String getExercise(UserExer userExer, Model model){
+        //this.userExer = userExer;
+        this.userExer.operand1 = (int) (Math.random() * 100);
+        this.userExer.operand2 = (int) (Math.random() * 100);
+            if (this.userExer.operand1<this.userExer.operand2)
             {
-                int temp = operand2;
-                operand2 = operand1;
-                operand1 = temp;
+                int temp = this.userExer.operand2;
+                this.userExer.operand2 = this.userExer.operand1;
+                this.userExer.operand1 = temp;
             }
-        if (this.operand1%2==0) operation="+";
-                else operation="-";
-        model.addAttribute("operand1", operand1);
-        model.addAttribute("operand2", operand2);
-        model.addAttribute("answer", answer);
-        model.addAttribute("operation", operation);
-        model.addAttribute("okcount", okCount);
-        model.addAttribute("count", okCount+erCount);
+        if (this.userExer.operand1%2==0) this.userExer.operation="+";
+                else this.userExer.operation="-";
+          model.addAttribute("userExer",this.userExer);
+//        model.addAttribute("operand1", userExer.operand1);
+//        model.addAttribute("operand2", userExer.operand2);
+          model.addAttribute("answer", answer);
+//        model.addAttribute("operation", userExer.operation);
+//        model.addAttribute("okcount", userExer.okCount);
+//        model.addAttribute("count", userExer.okCount+userExer.erCount);
 
         return "doex";
     }
 
+    @GetMapping("/")
+    public String getStarted(Model model){
+
+        this.userExer = new UserExer();
+        //getExercise(userExer, model);
+//        model.addAttribute(userExer);
+        return "redirect:/doex";
+    }
+
     @PostMapping("/check")
     public String checkAnswer(@RequestParam("answer") int answer, Model model){
-        String checked;
-
-        if (operation.equals("+") ? operand1+operand2==answer : operand1-operand2==answer) {
-            checked = ""+operand1+" "+operation+" "+operand2+" "+" = "+answer+" - правильно";
-            okCount++;
+        this.userExer.answer=answer;
+        if (this.userExer.operation.equals("+") ? this.userExer.operand1+this.userExer.operand2==this.userExer.answer : this.userExer.operand1-this.userExer.operand2==this.userExer.answer) {
+            this.userExer.checked = ""+this.userExer.operand1+" "+this.userExer.operation+" "+this.userExer.operand2+" "+" = "+this.userExer.answer+" - правильно";
+            this.userExer.okCount++;
         }
             else{
-            checked = ""+operand1+" "+operation+" "+operand2+" "+" = "+answer+" - не правильно";
-                erCount++;
+            this.userExer.checked = ""+this.userExer.operand1+" "+this.userExer.operation+" "+this.userExer.operand2+" "+" = "+this.userExer.answer+" - не правильно";
+            this.userExer.erCount++;
         }
 
-        model.addAttribute("checked", checked);
-        model.addAttribute("okcount", okCount);
-        model.addAttribute("count", okCount+erCount);
+        model.addAttribute("userExer", this.userExer);
         return "check";
     }
 }
