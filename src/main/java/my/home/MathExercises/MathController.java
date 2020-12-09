@@ -24,13 +24,7 @@ public class MathController {
         if (this.userExer.operand1%2==0) this.userExer.operation="+";
                 else this.userExer.operation="-";
           model.addAttribute("userExer",this.userExer);
-//        model.addAttribute("operand1", userExer.operand1);
-//        model.addAttribute("operand2", userExer.operand2);
           model.addAttribute("answer", answer);
-//        model.addAttribute("operation", userExer.operation);
-//        model.addAttribute("okcount", userExer.okCount);
-//        model.addAttribute("count", userExer.okCount+userExer.erCount);
-
         return "doex";
     }
 
@@ -38,8 +32,6 @@ public class MathController {
     public String getStarted(Model model){
 
         this.userExer = new UserExer();
-        //getExercise(userExer, model);
-//        model.addAttribute(userExer);
         return "redirect:/doex";
     }
 
