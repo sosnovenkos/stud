@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        p {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 20pt; /* Размер шрифта в пунктах */
+        }
+    </style>
 </head>
 <body>
 <p>Решим пример: </p>
 
 <p th:text="${userExer.getOperand1()} + ${userExer.getOperation()} +${userExer.getOperand2()}" />
 <form th:method="POST" th:action="@{/check}" th:object="${answer}">
-    <label for="answer">Ответ</label>
+    <p>Ответ: </p>
+    <label th:size="20" for="answer"></label>
     <input name="answer" type="number"  id="answer">
     <input type="submit" value="Проверить"/>
 </form>
