@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Решим пример: </p>
+<p th:text="${operand1} + ${operation} +${operand2}" />
+<form th:method="POST" th:action="@{/check}" th:object="${answer}">
+    <label for="answer">Ответ</label>
+    <input name="answer" type="number" id="answer">
+    <input type="submit" value="Проверить"/>
+</form>
+    <p><span th:text="${count}"/> - всего выполнено заданий</p>
+    <p><span th:text="${okcount}"/> - правильно выполнено заданий</p>
+</body>
+</html>

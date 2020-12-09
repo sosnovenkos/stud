@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Проверка: </p>
+<p th:text="${checked}"/>
+<form th:method="get" th:action="@{/doex}">
+    <button  type="submit">Еще раз</button>
+</form>
+<p><span th:text="${count}"/> - всего выполнено заданий</p>
+<p><span th:text="${okcount}"/> - правильно выполнено заданий</p>
+</body>
+</html>
